@@ -20,3 +20,19 @@ body{
   background-size: cover;
   background-position: bottom;
 }
+
+.parpadeante{
+  animation: parpadeante 1.5s infinite;
+}
+
+@keyframes parpadeante {
+  0% {
+     opacity: 0;
+     }
+  60% {
+     opacity: 1; 
+     }
+  100% {
+     opacity: 0; }
+
+}
