@@ -32,6 +32,13 @@ export default function App() {
         setValue("")
 
   }
+
+
+  const handleDelete = ( id : number ) => {
+        const newGifts = gifts.filter(gift => gift.id !== id)
+
+        setGifts(newGifts)
+  }
   return (
     <div className="flex flex-col h-screen items-center justify-center w-full  ">
           
@@ -45,13 +52,14 @@ export default function App() {
             </div>
             
               <h1 className="text-5xl font-bold underline mb-4">Regalos:</h1>
-              <form onSubmit={handleSubmit} className="flex justify-between gap-2">
+              <form onSubmit={handleSubmit} className="flex justify-between gap-2  mb-2">
                 <input className="border-2 p-1 font-semibold focus:outline-none border-gray-900" type="text" value={ value } onChange={(e) => setValue(e.target.value)} />
                 <button type="submit" className="bg-red-500 px-3 text-white ">Agregar</button>
               </form>
               <ul>
-                  {gifts.map(gift=> <li key={gift.id} className="font-bold">
+                  {gifts.map(gift=> <li key={gift.id} className="font-bold flex justify-between ">
                                         {gift.gift}
+                                        <button onClick={() => handleDelete(gift.id)} className="bg-red-500 text-white px-2 py-0 my-1">x</button>
                                     </li>
                   )}  
               </ul>  
