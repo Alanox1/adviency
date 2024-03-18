@@ -56,14 +56,25 @@ export default function App() {
                 <input className="border-2 p-1 font-semibold focus:outline-none border-gray-900" type="text" value={ value } onChange={(e) => setValue(e.target.value)} />
                 <button type="submit" className="bg-red-500 px-3 text-white ">Agregar</button>
               </form>
-              <ul>
-                  {gifts.map(gift=> <li key={gift.id} className="font-bold flex justify-between ">
-                                        {gift.gift}
-                                        <button onClick={() => handleDelete(gift.id)} className="bg-red-500 text-white px-2 py-0 my-1">x</button>
-                                    </li>
-                  )}  
-              </ul>  
-
+              {gifts.length === 0 ? (
+                                     <p className="text-center font-bold my-4">¡No hay regalos! ¡Agregá algo!</p>
+                                    ) : (
+                                    <ul>
+                                      {gifts.map(({ id, gift }) => (
+                                        <li key={id} className="font-bold flex justify-between ">
+                                          {gift}
+                                          <button
+                                            onClick={() => handleDelete(id)}
+                                            className="bg-red-500 text-white px-2 py-0 my-1"
+                                          >
+                                            x
+                                          </button>
+                                        </li>
+                                      ))}
+                                    </ul>
+                )}
+               
+              <button onClick={() => setGifts([])} className="w-full bg-red-500 mt-4 py-1 text-white">Borrar todo</button>
           </div>
          
     </div>
