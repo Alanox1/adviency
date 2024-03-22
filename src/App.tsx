@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Parpadeantes from "./components/parpadeantes/Parpadeantes";
 
+
+interface Gifts {
+   id : number
+   gift : string
+   quantity : number
+}
 const initialState = [
   {
     id : 1,
@@ -18,11 +24,21 @@ const initialState = [
     quantity : 2
   }
 ]
-export default function App() {
+export default function App () {
 
-  const [ gifts, setGifts ] = useState( initialState )
+  const [gifts, setGifts] = useState<Gifts[]>(() => {
+    const storedList = localStorage.getItem("gifts");
+    return storedList ? JSON.parse(storedList) : initialState;
+  });
+  
   const [ value, setValue ] = useState( "" )
   const [ quantity, setQuantity ] = useState( 1 )
+
+
+  useEffect(() => {
+    localStorage.setItem("gifts", JSON.stringify(gifts));
+  }, [ gifts ]);
+
 
   const handleSubmit = ( e: React.FormEvent<HTMLFormElement> ) => {
         e.preventDefault()
@@ -36,9 +52,11 @@ export default function App() {
           quantity : quantity
         }
         
-        setGifts(prevGifts => [...prevGifts, newGift])
+         setGifts(prevGifts => [...prevGifts, newGift])
+      
         setValue("")
         setQuantity(1)
+
   }
   
   if(quantity === undefined) return 
