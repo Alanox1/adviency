@@ -1,27 +1,27 @@
 import { useState, useEffect } from "react";
 import Parpadeantes from "./components/parpadeantes/Parpadeantes";
+import Form from "./components/form/Form";
+import imageDefault from "./assets/imageDefault.webp"
+import {Gifts} from "./types"
 
-
-interface Gifts {
-   id : number
-   gift : string
-   quantity : number
-}
 const initialState = [
   {
     id : 1,
     gift : "Vitel tone",
-    quantity : 1
+    quantity : 1,
+    image : ""
   },
   {
     id : 2,
     gift : "Auriculares",
-    quantity : 1
+    quantity : 1,
+    image : ""
   },
   {
     id : 3,
     gift : "Caramelos",
-    quantity : 2
+    quantity : 2,
+    image : ""
   }
 ]
 export default function App () {
@@ -30,43 +30,24 @@ export default function App () {
     const storedList = localStorage.getItem("gifts");
     return storedList ? JSON.parse(storedList) : initialState;
   });
-  
-  const [ value, setValue ] = useState( "" )
-  const [ quantity, setQuantity ] = useState( 1 )
-
 
   useEffect(() => {
     localStorage.setItem("gifts", JSON.stringify(gifts));
   }, [ gifts ]);
 
 
-  const handleSubmit = ( e: React.FormEvent<HTMLFormElement> ) => {
-        e.preventDefault()
-
-        if (value.length === 0 || gifts.find(({ gift }) => gift === value) !== undefined) return;
-
-
-        const newGift = {
-          id : gifts.length + 1,
-          gift : value,
-          quantity : quantity
-        }
-        
-         setGifts(prevGifts => [...prevGifts, newGift])
-      
-        setValue("")
-        setQuantity(1)
-
-  }
-  
-  if(quantity === undefined) return 
-
 
   const handleDelete = ( id : number ) => {
-        const newGifts = gifts.filter(gift => gift.id !== id)
+    const newGifts = gifts.filter(gift => gift.id !== id)
 
-        setGifts(newGifts)
-  }
+    setGifts(newGifts)
+}
+  
+
+ console.log(gifts)
+
+
+
   return (
     <div className="flex flex-col h-screen items-center justify-center w-full  ">
           
@@ -80,18 +61,21 @@ export default function App () {
             </div>
             
               <h1 className="text-5xl font-bold underline mb-4">Regalos:</h1>
-              <form onSubmit={handleSubmit} className="flex justify-between gap-2  mb-2">
-                <input className="border-2 p-1 font-semibold focus:outline-none border-gray-900 flex-grow w-3/4" type="text" value={ value } onChange={(e) => setValue(e.target.value)} />
-                <input min="1" type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} className="w-10" />
-                <button type="submit" className="bg-red-500 px-3 text-white ">Agregar</button>
-              </form>
+
+              <Form gifts={gifts} setGifts={setGifts} />
+
+            <div>
+
+            
               {gifts.length === 0 ? (
                                      <p className="text-center font-bold my-4">¡No hay regalos! ¡Agregá algo!</p>
                                     ) : (
                                     <ul className="p-0">
-                                      {gifts.map(({ id, gift, quantity }) => (
-                                        <li key={id} className="font-bold flex justify-between items-center ">
+                                      {gifts.map(({ id, gift, quantity, image }) => (
+                                        <li key={id} className="font-bold flex justify-between items-center my-4 ">
+                                          
                                           <div className="flex gap-3">
+                                            <img src={image === "" ? imageDefault : image} className="w-12 h-auto object-cover" />
                                             <p>{gift}</p>
                                             <p className="text-start">{quantity === undefined || quantity === 1 ? "" : `x ${quantity}`}</p>
                                           </div>
@@ -106,7 +90,7 @@ export default function App () {
                                       ))}
                                     </ul>
                 )}
-               
+               </div>
               <button onClick={() => setGifts([])} className="w-full bg-red-500 mt-4 py-1 text-white">Borrar todo</button>
           </div>
          
