@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Parpadeantes from "./components/parpadeantes/Parpadeantes";
 import Form from "./components/form/Form";
-import imageDefault from "../public/imageDefault.webp"
 import {Gifts} from "./types"
 
 const initialState = [
@@ -72,7 +71,7 @@ export default function App () {
                                         <li key={id} className="font-bold flex justify-between items-center my-4 ">
                                           
                                           <div className="flex gap-3">
-                                            <img src={image === "" ? "https://adviency-jet.vercel.app/imageDefault.webp" : image} className="w-12 h-auto object-cover" />
+                                            <img src={image === "" ? "https://images.pexels.com/photos/220617/pexels-photo-220617.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" : image} className="w-12 h-auto object-cover" />
                                             <p>{gift}</p>
                                             <p className="text-start">{quantity === undefined || quantity === 1 ? "" : `x ${quantity}`}</p>
                                           </div>
