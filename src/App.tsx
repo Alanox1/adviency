@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Parpadeantes from "./components/parpadeantes/Parpadeantes";
 import Form from "./components/form/Form";
-import imageDefault from "./assets/imageDefault.webp"
+import imageDefault from "../public/imageDefault.webp"
 import {Gifts} from "./types"
 
 const initialState = [
