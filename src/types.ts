@@ -7,6 +7,6 @@ export interface Gifts {
 
 
 export interface FormProps {
-    gifts: [];
+    gifts: Gifts[];
     setGifts: any;
   }
