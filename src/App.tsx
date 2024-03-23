@@ -72,7 +72,7 @@ export default function App () {
                                         <li key={id} className="font-bold flex justify-between items-center my-4 ">
                                           
                                           <div className="flex gap-3">
-                                            <img src={image === "" ? "https://tusitio.vercel.app/images/imagen.jpg" : image} className="w-12 h-auto object-cover" />
+                                            <img src={image === "" ? "https://adviency-jet.vercel.app/imageDefault.webp" : image} className="w-12 h-auto object-cover" />
                                             <p>{gift}</p>
                                             <p className="text-start">{quantity === undefined || quantity === 1 ? "" : `x ${quantity}`}</p>
                                           </div>
