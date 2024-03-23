@@ -42,9 +42,6 @@ export default function App () {
 
     setGifts(newGifts)
 }
-  
-
- console.log(gifts)
 
 
 
