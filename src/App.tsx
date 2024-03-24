@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
+import Modal from "react-modal"
 import Parpadeantes from "./components/parpadeantes/Parpadeantes";
 import Form from "./components/form/Form";
 import {Gifts} from "./types"
 import imageDefault from "../public/imageDefault.webp"
+
+Modal.setAppElement('#root');
+
+
 const initialState = [
   {
     id : 1,
@@ -23,6 +28,10 @@ const initialState = [
     image : ""
   }
 ]
+
+
+
+
 export default function App () {
 
   const [gifts, setGifts] = useState<Gifts[]>(() => {
@@ -30,10 +39,13 @@ export default function App () {
     return storedList ? JSON.parse(storedList) : initialState;
   });
 
+
+  const [ visible, setVisible ] = useState(false)
+
+
   useEffect(() => {
     localStorage.setItem("gifts", JSON.stringify(gifts));
   }, [ gifts ]);
-
 
 
   const handleDelete = ( id : number ) => {
@@ -42,6 +54,10 @@ export default function App () {
     setGifts(newGifts)
 }
 
+const openModal = () => setVisible(true);
+
+
+const closeModal = () => setVisible(false);
 
 
   return (
@@ -58,8 +74,12 @@ export default function App () {
             
               <h1 className="text-5xl font-bold underline mb-4">Regalos:</h1>
 
-              <Form gifts={gifts} setGifts={setGifts} />
-
+              <button onClick={openModal}
+                      className="w-full bg-red-500 text-white p-1"
+              >
+                Agregar
+              
+              </button>
             <div>
 
             
@@ -68,7 +88,7 @@ export default function App () {
                                     ) : (
                                     <ul className="p-0">
                                       {gifts.map(({ id, gift, quantity, image }) => (
-                                        <li key={id} className="font-bold flex justify-between items-center my-4 ">
+                                        <li key={id} className="font-bold flex justify-between items-center my-4 gap-16">
                                           
                                           <div className="flex gap-3">
                                             <img src={image === "" ? imageDefault : image} className="w-12 h-auto object-cover" />
@@ -89,6 +109,28 @@ export default function App () {
                </div>
               <button onClick={() => setGifts([])} className="w-full bg-red-500 mt-4 py-1 text-white">Borrar todo</button>
           </div>
+          {visible 
+           ?  <Modal
+                   isOpen={visible}
+                   onRequestClose={closeModal}
+                   contentLabel="Formulario Modal"
+                    style={{
+                      overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                      },
+                      content: {
+                        width: '30%',
+                        height: '50%', 
+                        margin: 'auto', 
+                        overflowY: "hidden"
+
+                      }
+                    }}
+               >
+                   <Form gifts={gifts} setGifts={setGifts} onClose={closeModal} />
+              </Modal>
+           :  ""
+          }
          
     </div>
    

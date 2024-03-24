@@ -9,4 +9,5 @@ export interface Gifts {
 export interface FormProps {
     gifts: Gifts[];
     setGifts: any;
+    onClose : () => void;
   }
