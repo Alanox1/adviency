@@ -109,7 +109,7 @@ export default function App() {
                         : `x ${quantity}`}
                     </p>
                   </div>
-                  <div>
+                  <div className="flex gap-2">
                     <button
                       className="bg-red-500 text-white px-2 py-0 my-1"
                       onClick={() => openEditModal({ id, gift, quantity, image, destinatario })}

@@ -25,8 +25,8 @@ const Form: React.FC<FormProps & { additionalGift?: Gifts }> = ({
     };
 
     if (additionalGift) {
-      const updatedGifts = gifts.map(g =>
-        g.id === additionalGift.id ? newGift : g
+      const updatedGifts = gifts.map(gift =>
+        gift.id === additionalGift.id ? newGift : gift
       );
       setGifts(updatedGifts);
     } else {
