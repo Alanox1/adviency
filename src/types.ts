@@ -3,6 +3,7 @@ export interface Gifts {
     gift : string
     quantity : number
     image : string
+    destinatario : string
  }
 
 
