@@ -46,6 +46,7 @@ export default function App() {
     setSelectedGift(null);
   };
 
+
   return (
     <div className="flex flex-col h-screen items-center justify-center w-full ">
 
@@ -79,7 +80,7 @@ export default function App() {
            </p>
          ) : (
            <ul className="p-0">
-             {gifts.map(({ id, gift, quantity, image, destinatario }) => (
+             {gifts.map(({ id, gift, quantity, image, destinatario, price }) => (
                <li
                  key={id}
                  className="font-bold flex justify-between items-center my-4 gap-16"
@@ -99,11 +100,12 @@ export default function App() {
                        ? ""
                        : `x ${quantity}`}
                    </p>
+                   <p>{price === 0 ? "" : `- $ ${price * quantity}`}</p>
                  </div>
                  <div className="flex gap-2">
                    <button
                      className="bg-red-500 text-white px-2 py-0 my-1"
-                     onClick={() => openEditModal({ id, gift, quantity, image, destinatario })}
+                     onClick={() => openEditModal({ id, gift, quantity, image, destinatario, price })}
                    >
                      E
                    </button>
@@ -141,7 +143,7 @@ export default function App() {
             },
             content: {
               width: "30%",
-              height: "50%",
+              height: "60%",
               margin: "auto",
               overflowY: "hidden"
             }

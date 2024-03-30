@@ -1,7 +1,15 @@
-
 import React, { useState } from "react";
 import { Gifts, FormProps } from "../../types";
-
+const regalos = [
+  "Chocolate",
+  "Auriculares",
+  "Libros",
+  "Llavero",
+  "Sudoku",
+  "Vitel tone",
+  "Juego de mesa",
+  "Perfume"
+]
 const Form: React.FC<FormProps & { additionalGift?: Gifts }> = ({
   gifts,
   setGifts,
@@ -12,16 +20,20 @@ const Form: React.FC<FormProps & { additionalGift?: Gifts }> = ({
   const [quantity, setQuantity] = useState(additionalGift ? additionalGift.quantity : 1);
   const [image, setImage] = useState(additionalGift ? additionalGift.image : "");
   const [destinatario, setDestinatario] = useState(additionalGift ? additionalGift.destinatario : "");
+  const [price, setPrice] = useState(additionalGift ? additionalGift.price : 0);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+
 
     const newGift = {
       id: additionalGift ? additionalGift.id : gifts.length + 1,
       gift: value,
       quantity,
       image,
-      destinatario
+      destinatario,
+      price
     };
 
     if (additionalGift) {
@@ -41,18 +53,30 @@ const Form: React.FC<FormProps & { additionalGift?: Gifts }> = ({
     onClose();
   };
 
+ 
+
+  const giftsAleatorio = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    console.log(regalos[Math.floor(Math.random() * (regalos.length - 1) + 1)])
+    setValue(regalos[Math.floor(Math.random() * (regalos.length - 1) + 1)]) 
+  }
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex justify-between gap-2 flex-col items-center mb-2 h-full py-6 px-4"
+      className="flex justify-between gap-2 flex-col items-center mb-2  py-6 px-4 h-auto "
     >
-      <input
-        className="border-2 p-2 font-semibold focus:outline-none border-gray-900 w-full"
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder="Medias..."
-      />
+      <div className="flex justify-between w-full gap-4">
+        <input
+          className="border-2 p-2 font-semibold focus:outline-none border-gray-900 w-full"
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Medias..."
+        />
+        <button className="bg-red-500 text-white px-2" onClick={(e: React.MouseEvent<HTMLButtonElement>) => giftsAleatorio(e)}>Sorprendeme!</button>
+      </div>
+     
+     <input type="number" value={price}  onChange={(e) => setPrice(Number(e.target.value))} className="border-2 p-2 border-gray-900 w-full"  />
 
       <input
         type="text"

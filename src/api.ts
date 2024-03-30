@@ -5,14 +5,16 @@ const initialState = [
         gift : "Vitel tone",
         destinatario : "Alan",
         image : "",
-        quantity : 2
+        quantity : 2,
+        price : 100
     },
     {
         id : 2,
         gift : "Auriculares",
         destinatario : "Goncy",
         image : "",
-        quantity : 5
+        quantity : 5,
+        price : 100
     }
 ]
 
