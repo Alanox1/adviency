@@ -46,7 +46,9 @@ export default function App() {
     setSelectedGift(null);
   };
 
-
+  const total = gifts.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.price * currentValue.quantity;
+  }, 0); 
   return (
     <div className="flex flex-col h-screen items-center justify-center w-full ">
 
@@ -122,6 +124,8 @@ export default function App() {
          )}
         
        </div>
+
+       <h4 className="text-center font-semibold">Total: ${total}</h4>
        <button
          onClick={() => setGifts([])}
          className="w-full bg-red-500 mt-4 py-1 text-white"
