@@ -14,8 +14,8 @@ export default function App() {
   const [visible, setVisible] = useState(false);
   const [selectedGift, setSelectedGift] = useState<Gifts | null>(null);
   const [ isLoading, setIsLoading ] = useState( true )
- 
   
+  const [ previsualizar, setPrevisualizar ] = useState(false)
 
   useEffect(() => {
     api.gifts()
@@ -43,9 +43,10 @@ export default function App() {
 
   const closeModal = () => {
     setVisible(false);
+    setPrevisualizar(false)
     setSelectedGift(null);
   };
-
+  
   const total = gifts.reduce((accumulator, currentValue) => {
     return accumulator + currentValue.price * currentValue.quantity;
   }, 0); 
@@ -132,6 +133,10 @@ export default function App() {
        >
          Borrar todo
        </button>
+       <button onClick={() => {
+                      setPrevisualizar(true)
+                      setVisible(true)
+       } } className="w-full bg-gray-500 mt-4 py-1 text-white">Previsualizar</button>
      </div>
       }
      
@@ -146,36 +151,54 @@ export default function App() {
               backgroundColor: "rgba(0, 0, 0, 0.5)"
             },
             content: {
-              width: "30%",
-              height: "60%",
-              margin: "auto",
-              overflowY: "hidden"
+              width: "auto",
+              maxWidth: "30%", 
+         
+              position : "relative",
+              margin : "auto",
+              overflowY: "auto"
             }
           }}
         >
-          <Form
-            gifts={gifts}
-            setGifts={setGifts}
-            onClose={closeModal}
-            additionalGift={selectedGift !== null ? selectedGift : undefined}
-          />
+          {previsualizar
+              ? <div className="flex flex-col justify-between items-center p-0 m-0">
+                <h2 className="text-5xl font-bold underline mb-4">Comprar: </h2>
+                <ul className="flex flex-col gap-4">
+                  {gifts.map(({gift, destinatario, image, quantity,id}) => {
+                  return <article key={id} className="flex gap-4 font-bold">
+                            <img src={image === "" ? imageDefault : image} className="w-12 h-auto object-cover" />
+                             
+                            <div className="flex flex-col">
+                              <h2 className="text-xl">{gift}</h2>
+                              <p>{destinatario}</p>
+                            </div>
+                            <p className="text-xl">{`(${quantity})`}</p>
+                         </article>
+                  })}
+                </ul>
+                <button onClick={() => {
+                  setVisible(false)
+                  setPrevisualizar(false)
+                }}
+                        className="w-full bg-red-500 my-10 p-2 text-white"
+                >
+                  Cerrar
+                </button>
+              </div> 
+      : <Form
+          gifts={gifts}
+          setGifts={setGifts}
+          onClose={closeModal}
+          additionalGift={selectedGift !== null ? selectedGift : undefined}
+        />
+      }
         </Modal>
       ) : (
         ""
       )}
+
+     
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -21,7 +21,7 @@ const Form: React.FC<FormProps & { additionalGift?: Gifts }> = ({
   const [image, setImage] = useState(additionalGift ? additionalGift.image : "");
   const [destinatario, setDestinatario] = useState(additionalGift ? additionalGift.destinatario : "");
   const [price, setPrice] = useState(additionalGift ? additionalGift.price : 0);
-
+  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -57,7 +57,6 @@ const Form: React.FC<FormProps & { additionalGift?: Gifts }> = ({
 
   const giftsAleatorio = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    console.log(regalos[Math.floor(Math.random() * (regalos.length - 1) + 1)])
     setValue(regalos[Math.floor(Math.random() * (regalos.length - 1) + 1)]) 
   }
   return (
@@ -110,8 +109,32 @@ const Form: React.FC<FormProps & { additionalGift?: Gifts }> = ({
           {additionalGift ? "Editar" : "Agregar"}
         </button>
       </div>
+
+      
     </form>
   );
 };
 
 export default Form;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
