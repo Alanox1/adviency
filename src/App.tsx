@@ -50,6 +50,11 @@ export default function App() {
   const total = gifts.reduce((accumulator, currentValue) => {
     return accumulator + currentValue.price * currentValue.quantity;
   }, 0); 
+
+
+  const imprimir = () => {
+    window.print()
+  }
   return (
     <div className="flex flex-col h-screen items-center justify-center w-full ">
 
@@ -151,12 +156,15 @@ export default function App() {
               backgroundColor: "rgba(0, 0, 0, 0.5)"
             },
             content: {
-              width: "auto",
-              maxWidth: "30%", 
-         
-              position : "relative",
-              margin : "auto",
-              overflowY: "auto"
+              top: '50%',
+              left: '50%',
+              right: 'auto',
+              bottom: 'auto',
+              marginRight: '-50%',
+              transform: 'translate(-50%, -50%)',
+              maxWidth: '80vw',
+              maxHeight: '80vh',
+              overflow: 'auto'
             }
           }}
         >
@@ -176,14 +184,21 @@ export default function App() {
                          </article>
                   })}
                 </ul>
-                <button onClick={() => {
-                  setVisible(false)
-                  setPrevisualizar(false)
-                }}
-                        className="w-full bg-red-500 my-10 p-2 text-white"
-                >
-                  Cerrar
-                </button>
+                <div className="flex gap-4">
+                    
+                    <button onClick={() => {
+                              setVisible(false)
+                              setPrevisualizar(false)
+                    }}
+                            className="w-full bg-red-500 my-10 p-2 text-white print:hidden"
+                    >
+                      Cerrar
+                    </button>
+
+                    <button onClick={imprimir }  className="w-full bg-gray-500 my-10 p-2 text-white print:hidden">Imprimir</button>
+
+                </div>
+               
               </div> 
       : <Form
           gifts={gifts}
