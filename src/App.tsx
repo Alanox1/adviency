@@ -61,12 +61,12 @@ export default function App() {
 
 
   const play = () => {
-    load("https://adviency-jet.vercel.app/public/Jingle-Bells.mp3", { autoplay: true, loop : true });
+    load("https://adviency-jet.vercel.app/Jingle-Bells.mp3", { autoplay: true, loop : true });
     setIsPlaying(true)
   }
 
   const stop = () => {
-    load("https://adviency-jet.vercel.app/public/Jingle-Bells.mp3", { autoplay: false });
+    load("https://adviency-jet.vercel.app/Jingle-Bells.mp3", { autoplay: false });
     setIsPlaying(false)
   }
   return (
