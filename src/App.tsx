@@ -5,6 +5,7 @@ import Form from "./components/form/Form";
 import { Gifts } from "./types";
 import imageDefault from "../public/imageDefault.webp";
 import { api } from "../src/api"
+import { useGlobalAudioPlayer } from 'react-use-audio-player';
 Modal.setAppElement("#root");
 
 export default function App() {
@@ -16,7 +17,9 @@ export default function App() {
   const [ isLoading, setIsLoading ] = useState( true )
   
   const [ previsualizar, setPrevisualizar ] = useState(false)
+  const [ isPlaying, setIsPlaying ] = useState( false )
 
+  const { load } = useGlobalAudioPlayer();
   useEffect(() => {
     api.gifts()
       .then((gifts: any) => setGifts(gifts.data))
@@ -55,6 +58,17 @@ export default function App() {
   const imprimir = () => {
     window.print()
   }
+
+
+  const play = () => {
+    load("/public/Jingle-Bells.mp3", { autoplay: true, loop : true });
+    setIsPlaying(true)
+  }
+
+  const stop = () => {
+    load("/public/Jingle-Bells.mp3", { autoplay: false });
+    setIsPlaying(false)
+  }
   return (
     <div className="flex flex-col h-screen items-center justify-center w-full ">
 
@@ -69,8 +83,13 @@ export default function App() {
          <Parpadeantes bgColor={"bg-yellow-500"} />
        </div>
 
-       <h1 className="text-5xl font-bold underline mb-4">Regalos:</h1>
+       <div className="flex justify-between items-center">
+          <h1 className="text-5xl font-bold underline mb-4">Regalos:</h1>
+          <button onClick={isPlaying ? () => stop() : () => play() } className="text-3xl">{ isPlaying ? "🔇" : "🔊" }</button>
+       </div>
 
+   
+       
        <button
          onClick={() => {
            setVisible(true);
