@@ -74,7 +74,7 @@ export default function App() {
   return (
     <div className="snowfall flex flex-col h-screen items-center justify-center w-full relative ">
       <div className="absolute top-0 left-0 w-full h-full z-0">
-        <Snowfall color="white" snowflakeCount={150} />
+        <Snowfall color="white" snowflakeCount={100} />
 
       </div>
     

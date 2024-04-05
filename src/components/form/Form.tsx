@@ -75,7 +75,7 @@ const Form: React.FC<FormProps & { additionalGift?: Gifts }> = ({
         <button className="bg-red-500 text-white px-2" onClick={(e: React.MouseEvent<HTMLButtonElement>) => giftsAleatorio(e)}>Sorprendeme!</button>
       </div>
      
-     <input type="number" value={price}  onChange={(e) => setPrice(Number(e.target.value))} className="border-2 p-2 border-gray-900 w-full"  />
+     <input type="number" value={price} placeholder="1"  onChange={(e) => setPrice(Number(e.target.value))} className="border-2 p-2 border-gray-900 w-full"  />
 
       <input
         type="text"
