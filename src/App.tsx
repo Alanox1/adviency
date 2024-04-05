@@ -6,6 +6,7 @@ import { Gifts } from "./types";
 import imageDefault from "../public/imageDefault.webp";
 import { api } from "../src/api"
 import { useGlobalAudioPlayer } from 'react-use-audio-player';
+import Snowfall from 'react-snowfall'
 Modal.setAppElement("#root");
 
 export default function App() {
@@ -69,9 +70,14 @@ export default function App() {
     load("https://adviency-jet.vercel.app/Jingle-Bells.mp3", { autoplay: false });
     setIsPlaying(false)
   }
-  return (
-    <div className="flex flex-col h-screen items-center justify-center w-full ">
 
+  return (
+    <div className="snowfall flex flex-col h-screen items-center justify-center w-full relative ">
+      <div className="absolute top-0 left-0 w-full h-full z-0">
+        <Snowfall color="white" snowflakeCount={150} />
+
+      </div>
+    
       {isLoading
        ? <p className="px-20 py-16 h-auto bg-white rounded-xl shadow-2xl">Cargando...</p>
        :   <div className="px-12 py-8 h-auto bg-white rounded-xl shadow-2xl">
@@ -88,7 +94,7 @@ export default function App() {
           <button onClick={isPlaying ? () => stop() : () => play() } className="text-3xl">{ isPlaying ? "🔇" : "🔊" }</button>
        </div>
 
-   
+      
        
        <button
          onClick={() => {
@@ -172,7 +178,8 @@ export default function App() {
           contentLabel="Formulario Modal"
           style={{
             overlay: {
-              backgroundColor: "rgba(0, 0, 0, 0.5)"
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              zIndex: 100,
             },
             content: {
               top: '50%',
@@ -183,7 +190,8 @@ export default function App() {
               transform: 'translate(-50%, -50%)',
               maxWidth: '80vw',
               maxHeight: '80vh',
-              overflow: 'auto'
+              overflow: 'auto',
+              zIndex : 70
             }
           }}
         >
@@ -231,7 +239,7 @@ export default function App() {
         ""
       )}
 
-     
+
     </div>
   );
 }
