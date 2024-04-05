@@ -20,7 +20,7 @@ const Form: React.FC<FormProps & { additionalGift?: Gifts }> = ({
   const [quantity, setQuantity] = useState(additionalGift ? additionalGift.quantity : 1);
   const [image, setImage] = useState(additionalGift ? additionalGift.image : "");
   const [destinatario, setDestinatario] = useState(additionalGift ? additionalGift.destinatario : "");
-  const [price, setPrice] = useState(additionalGift ? additionalGift.price : 0);
+  const [price, setPrice] = useState(additionalGift ? additionalGift.price : 1);
   
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
